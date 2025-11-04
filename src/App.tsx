@@ -3,6 +3,7 @@ import { sevillaSites } from '@/data/sites'
 import { SiteCard } from '@/components/SiteCard'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import { MapPin, CheckCircle } from '@phosphor-icons/react'
 
 function App() {
@@ -36,9 +37,10 @@ function App() {
         <header className="mb-8 md:mb-12">
           <div className="flex items-center gap-3 mb-3">
             <MapPin weight="fill" className="w-10 h-10 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground flex-1">
               Discover Sevilla
             </h1>
+            <ThemeToggle />
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mb-6">
             Welcome to your personal guide for exploring Sevilla's most captivating sites. 
