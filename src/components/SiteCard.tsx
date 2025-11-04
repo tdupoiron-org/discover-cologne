@@ -2,16 +2,17 @@ import { Site } from '@/types/site'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Clock, Users, Star, Fire, Sparkle, CheckCircle } from '@phosphor-icons/react'
+import { Clock, Users, Star, Fire, Sparkle, CheckCircle, NavigationArrow } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
 
 interface SiteCardProps {
   site: Site
   isVisited: boolean
   onToggleVisit: (siteId: string) => void
+  walkingTime?: number | null
 }
 
-export function SiteCard({ site, isVisited, onToggleVisit }: SiteCardProps) {
+export function SiteCard({ site, isVisited, onToggleVisit, walkingTime }: SiteCardProps) {
   const getCrowdBadgeVariant = (level: Site['crowdLevel']) => {
     switch (level) {
       case 'high':
@@ -111,6 +112,18 @@ export function SiteCard({ site, isVisited, onToggleVisit }: SiteCardProps) {
             <Clock weight="bold" className="w-4 h-4" />
             <span>{site.duration}</span>
           </div>
+          {walkingTime !== undefined && walkingTime !== null && (
+            <div className="flex items-center gap-1.5 text-primary font-medium">
+              <NavigationArrow weight="bold" className="w-4 h-4" />
+              <span>
+                {walkingTime < 1 
+                  ? '< 1 min' 
+                  : walkingTime < 60 
+                    ? `${walkingTime} min` 
+                    : `${Math.floor(walkingTime / 60)} hr ${walkingTime % 60 > 0 ? `${walkingTime % 60} min` : ''}`}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </Card>

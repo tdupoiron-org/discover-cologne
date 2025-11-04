@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { sevillaSites } from '@/data/sites'
 import { SiteCard } from '@/components/SiteCard'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, CheckCircle } from '@phosphor-icons/react'
+import { Slider } from '@/components/ui/slider'
+import { MapPin, CheckCircle, NavigationArrow, X } from '@phosphor-icons/react'
+import { useGeolocation } from '@/hooks/use-geolocation'
+import { calculateDistance, calculateWalkingTime } from '@/lib/geolocation'
 
 function App() {
   const [visitedSites, setVisitedSites] = useState<string[]>([])
   const [filter, setFilter] = useState<'all' | 'visited' | 'unvisited'>('all')
+  const [maxWalkingTime, setMaxWalkingTime] = useState<number>(60) // in minutes
+  const [showDurationFilter, setShowDurationFilter] = useState(false)
+  
+  const { latitude, longitude, error, loading, permissionStatus, requestLocation } = useGeolocation()
 
   const visited = visitedSites
 
@@ -20,9 +27,34 @@ function App() {
     })
   }
 
-  const filteredSites = sevillaSites.filter(site => {
-    if (filter === 'visited') return visited.includes(site.id)
-    if (filter === 'unvisited') return !visited.includes(site.id)
+  // Calculate walking times for all sites
+  const sitesWithWalkingTime = useMemo(() => {
+    if (latitude === null || longitude === null) {
+      return sevillaSites.map(site => ({ ...site, walkingTime: null }))
+    }
+
+    return sevillaSites.map(site => {
+      const distanceKm = calculateDistance(
+        latitude,
+        longitude,
+        site.coordinates.latitude,
+        site.coordinates.longitude
+      )
+      const walkingTime = calculateWalkingTime(distanceKm)
+      return { ...site, walkingTime }
+    })
+  }, [latitude, longitude])
+
+  const filteredSites = sitesWithWalkingTime.filter(site => {
+    // Filter by visited status
+    if (filter === 'visited' && !visited.includes(site.id)) return false
+    if (filter === 'unvisited' && visited.includes(site.id)) return false
+    
+    // Filter by walking time if location is enabled and duration filter is active
+    if (showDurationFilter && site.walkingTime !== null && site.walkingTime > maxWalkingTime) {
+      return false
+    }
+    
     return true
   })
 
@@ -44,6 +76,87 @@ function App() {
             Welcome to your personal guide for exploring Sevilla's most captivating sites. 
             Track your journey through this magnificent city.
           </p>
+
+          {/* Location Authorization */}
+          {permissionStatus !== 'granted' && (
+            <div className="bg-card border border-border rounded-xl p-4 mb-6 max-w-2xl">
+              <div className="flex items-start gap-4">
+                <NavigationArrow weight="fill" className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Enable Location for Walking Directions
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Allow location access to see walking times from your current position and filter sites by distance.
+                  </p>
+                  <button
+                    onClick={requestLocation}
+                    disabled={loading}
+                    className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? 'Requesting...' : 'Enable Location'}
+                  </button>
+                  {error && (
+                    <p className="text-sm text-destructive mt-3">
+                      {error}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Location Active with Duration Filter */}
+          {permissionStatus === 'granted' && (
+            <div className="bg-card border border-border rounded-xl p-4 mb-6 max-w-2xl">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4 flex-1">
+                  <NavigationArrow weight="fill" className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground mb-2">
+                      Location Enabled
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Walking times are now displayed on each site card.
+                    </p>
+                    
+                    {/* Duration Filter Toggle */}
+                    <button
+                      onClick={() => setShowDurationFilter(!showDurationFilter)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        showDurationFilter
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      }`}
+                    >
+                      {showDurationFilter ? 'Hide Duration Filter' : 'Filter by Walking Time'}
+                    </button>
+
+                    {/* Duration Slider */}
+                    {showDurationFilter && (
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <label className="text-sm font-medium text-foreground mb-3 block">
+                          Show sites within walking time: {maxWalkingTime < 60 ? `${maxWalkingTime} min` : `${Math.floor(maxWalkingTime / 60)} hr ${maxWalkingTime % 60 > 0 ? `${maxWalkingTime % 60} min` : ''}`}
+                        </label>
+                        <Slider
+                          value={[maxWalkingTime]}
+                          onValueChange={(value) => setMaxWalkingTime(value[0])}
+                          min={5}
+                          max={120}
+                          step={5}
+                          className="w-full"
+                        />
+                        <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                          <span>5 min</span>
+                          <span>120 min (2 hrs)</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
@@ -112,6 +225,7 @@ function App() {
                 site={site}
                 isVisited={visited.includes(site.id)}
                 onToggleVisit={toggleVisit}
+                walkingTime={site.walkingTime}
               />
             ))}
           </div>
