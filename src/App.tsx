@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { sevillaSites } from '@/data/sites'
 import { SiteCard } from '@/components/SiteCard'
+import { Onboarding } from '@/components/Onboarding'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, CheckCircle } from '@phosphor-icons/react'
+import { useOnboarding } from '@/hooks/use-onboarding'
 
 function App() {
   const [visitedSites, setVisitedSites] = useState<string[]>([])
   const [filter, setFilter] = useState<'all' | 'visited' | 'unvisited'>('all')
+  const { showOnboarding, completeOnboarding, skipOnboarding } = useOnboarding()
 
   const visited = visitedSites
 
@@ -31,8 +34,15 @@ function App() {
   const progressPercentage = (visitedCount / totalCount) * 100
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-6 py-8 md:px-8 md:py-12">
+    <>
+      <Onboarding
+        open={showOnboarding}
+        onComplete={completeOnboarding}
+        onSkip={skipOnboarding}
+      />
+      
+      <div className="min-h-screen bg-background">
+        <div className="max-w-7xl mx-auto px-6 py-8 md:px-8 md:py-12">
         <header className="mb-8 md:mb-12">
           <div className="flex items-center gap-3 mb-3">
             <MapPin weight="fill" className="w-10 h-10 text-primary" />
@@ -116,8 +126,9 @@ function App() {
             ))}
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
