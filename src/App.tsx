@@ -117,6 +117,16 @@ function App() {
           </div>
         )}
       </div>
+      
+      {/* Footer - Pie de página */}
+      <footer className="border-t border-border mt-12">
+        <div className="max-w-7xl mx-auto px-6 py-6 md:px-8">
+          <p className="text-center text-sm text-muted-foreground">
+            © 2025 Discover Sevilla. Made with ❤️ for travelers.
+            {/* Hecho con amor para viajeros */}
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }
