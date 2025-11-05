@@ -15,6 +15,11 @@
   }
 }
 
+/* Leaflet marker style for visited sites */
+.visited-marker {
+  filter: hue-rotate(90deg) saturate(1.5);
+}
+
 :root {
   --background: oklch(0.96 0.02 85);
   --foreground: oklch(0.25 0.01 35);

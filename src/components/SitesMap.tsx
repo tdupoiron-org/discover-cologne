@@ -12,25 +12,30 @@ interface SitesMapProps {
   onSiteClick?: (siteId: string) => void
 }
 
-// Custom icon for unvisited sites
+// Fix Leaflet's default icon paths for bundlers
+// Using unpkg CDN as fallback since Vite doesn't always bundle marker images correctly
+const iconUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH6AsZFgEXqzqCXwAAAeZJREFUWMPtl0tOw0AQRCvxgfgO7NlwAjgB4gTADdgAB0BwAuAEwCl8JI4AF+AE7NkDJ4AdJzZCPMGWRxPHn4lQJ7Wlld2u96lqt2ck/XvSLcC2pB1Jz5LqHx7qkrYa4gIz+zkhaVPSkaTZEFwVSbuSHiQ9S1oN0LUqabshTgNUz0i6j86TkLgnaSs6TwOQtCBpQ9JZVJ6T9BC1z0PQBVQ3Je1L+pZ0LulT0l70vhyVNwCpSzoLlP9K+ojOu9H5PwA1SY9R+1LSS/S+HoAtIUnTko6j8nZUXpT0Gp3fhyCpJOlB0pKkpaikJelK0lL0vBOCJE1J2pP0GJ23JD1F5fuSdiV9h6B9SeeSTiRdS7qJzneSLqLzXgjaknQlaUnScVS+jM7bIUiSFiXdS3qStCvpKSpfRud1Sbck3UnaSVG2KekmKm+EINH5Jno+j5rXJd1E5Y0Q1CO9RufTqHwlaS1F+aykx6h9PgRJ0rykY0lzkk4lrUTl5ajzJCA1Se9R+0bSd/T+FL0vBaBZSWuSXqP2K0nr0ftKCJqQ9B61P0Xl1ei8EoKknE6SLqP2ZXQ+GYIAzklakbQlaUPSTIryTdR5rZAP2I/az6LzTgiSciY5OXlJ+gnLyfcOebZU3gAAAABJRU5ErkJggg=='
+const shadowUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAApCAYAAACoYAD2AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH6AsZFgQXuUnr2wAAAjdJREFUWMPtmMuOgjAUhr+WsTxQ3gB3unX7BBp9A5+CN9A3cOvW7dqN+AZufIN2587tfTvQ0W4cWlvmIiQkJiSe5GeB9pSP/ycNFYA/Afr/9f8C5D8B+T8CmQMoAKQAFgBSADaA3ADQAGAB8AAUAFwAOQAbQA6gBJABWBgALACWAdACUAOwYQBIATQAagAugBxAZQBIADQAfAAVgMwAkAKoATQAcgB1A0ACYGsAcA0AJYC6AaAEkBsACgBVA0AGIAfQNADk1+91AGoDQI5PADkAZwjwTT5+qdcGgHwI8CuAHEA9BPgQQI7rAaxDAG4DcB0ALwNwfQkgxzhgJxOAXwBwOQQ4DOBrAC4vAVwOAXYDcH0p4OcQ4BCAywuB3wDwcgiQ43MAfB3A6yFA6/d1AC4vBXwbgK8v9f29OgBuLwV8H4DPLwVcngJwfwrA96cAXJ8CcH0KwPUpANenAFyfAnB9CsD1KQDXlwKu6wCuTwG4PgXg+lLA/S0A17cArk8BuL7Ec10HcH0p4NoA8PoSwPUpANenAK4vAX4fgM9vAdyfAnB/CcD9KQD3pwDcnwJwfwrA/SkA96cA3J8CcH8KwP0pAPenANyfAnB/CcD9KQD3pwDcnwJwfwnA/SkA96cA3J8CcH8KwP0pAI+nADyfAvB8CsDzKQDPlwK+D8Dzpf/zKQDPpwA8nwLwfArA8ykAz6cAPJ8C8HwKwPMpAM+nADyfAvB8CsDzKQDPpwA8nwLwfArA8ykAz6cAPJ8C8PwrAP/r/xfIfwDxK+j0hSF/AAAAAElFTkSuQmCC'
+
+// Custom icon for unvisited sites (blue - default)
 const defaultIcon = new Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconUrl,
+  shadowUrl,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41]
 })
 
-// Custom icon for visited sites (green marker)
+// Custom icon for visited sites (green - using CSS filter)
 const visitedIcon = new Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconUrl,
+  shadowUrl,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
+  className: 'visited-marker'
 })
 
 // Component to fit map bounds to all markers
