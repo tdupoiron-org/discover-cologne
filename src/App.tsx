@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sevillaSites } from '@/data/sites'
 import { SiteCard } from '@/components/SiteCard'
+import { SitesMap } from '@/components/SitesMap'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, CheckCircle } from '@phosphor-icons/react'
@@ -94,6 +95,22 @@ function App() {
           </div>
         </header>
 
+        {/* Map Section */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-foreground">Explore on Map</h2>
+          <SitesMap 
+            sites={filteredSites}
+            visitedSites={visited}
+            onSiteClick={(siteId) => {
+              // Scroll to the site card when marker is clicked
+              const element = document.getElementById(`site-${siteId}`)
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+              }
+            }}
+          />
+        </section>
+
         {filteredSites.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-lg text-muted-foreground">
@@ -107,12 +124,13 @@ function App() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSites.map((site) => (
-              <SiteCard
-                key={site.id}
-                site={site}
-                isVisited={visited.includes(site.id)}
-                onToggleVisit={toggleVisit}
-              />
+              <div key={site.id} id={`site-${site.id}`}>
+                <SiteCard
+                  site={site}
+                  isVisited={visited.includes(site.id)}
+                  onToggleVisit={toggleVisit}
+                />
+              </div>
             ))}
           </div>
         )}
