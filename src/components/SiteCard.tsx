@@ -26,9 +26,9 @@ export function SiteCard({ site, isVisited, onToggleVisit }: SiteCardProps) {
   const getPopularityConfig = (popularity: Site['popularity']) => {
     switch (popularity) {
       case 'must-see':
-        return { icon: Sparkle, label: 'Must-See', color: 'text-accent' }
+        return { icon: Sparkle, label: 'Must-See', color: 'text-primary' }
       case 'popular':
-        return { icon: Fire, label: 'Popular', color: 'text-primary' }
+        return { icon: Fire, label: 'Popular', color: 'text-accent' }
       case 'hidden-gem':
         return { icon: Star, label: 'Hidden Gem', color: 'text-accent' }
     }
