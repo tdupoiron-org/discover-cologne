@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/badge'
 import { MapPin, CheckCircle, Star } from '@phosphor-icons/react'
 import { UserSiteData } from '@/types/site'
 
+type FilterType = 'all' | 'visited' | 'unvisited' | 'priority'
+
 function App() {
   // Load user data from localStorage / Cargar datos del usuario desde localStorage
   const [visitedSites, setVisitedSites] = useState<string[]>(() => {
@@ -18,7 +20,7 @@ function App() {
     return saved ? JSON.parse(saved) : {}
   })
   
-  const [filter, setFilter] = useState<'all' | 'visited' | 'unvisited' | 'priority'>('all')
+  const [filter, setFilter] = useState<FilterType>('all')
 
   // Persist to localStorage / Persistir en localStorage
   useEffect(() => {

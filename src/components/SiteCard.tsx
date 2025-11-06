@@ -2,7 +2,7 @@ import { Site } from '@/types/site'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Clock, Users, Star, Fire, Sparkle, CheckCircle, BookmarkSimple } from '@phosphor-icons/react'
+import { Clock, Users, Star, Fire, Sparkle, CheckCircle, BookmarkSimple, X } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 
@@ -150,31 +150,34 @@ export function SiteCard({ site, isVisited, isPriority, userRating, onToggleVisi
           <div className="flex items-center gap-1">
             {showRatingInput ? (
               <div className="flex items-center gap-1 bg-secondary/50 rounded-full px-2 py-1">
-                {[1, 2, 3, 4, 5].map((rating) => (
-                  <button
-                    key={rating}
-                    onClick={() => {
-                      onSetUserRating(site.id, rating)
-                      setShowRatingInput(false)
-                    }}
-                    className="hover:scale-125 transition-transform"
-                    aria-label={`Rate ${rating} stars`}
-                  >
-                    <Star 
-                      weight={userRating && rating <= userRating ? "fill" : "regular"}
-                      className={cn(
-                        "w-4 h-4",
-                        userRating && rating <= userRating ? "text-blue-500" : "text-muted-foreground"
-                      )}
-                    />
-                  </button>
-                ))}
+                {[1, 2, 3, 4, 5].map((rating) => {
+                  const isRated = userRating !== null && rating <= userRating
+                  return (
+                    <button
+                      key={rating}
+                      onClick={() => {
+                        onSetUserRating(site.id, rating)
+                        setShowRatingInput(false)
+                      }}
+                      className="hover:scale-125 transition-transform"
+                      aria-label={`Rate ${rating} stars`}
+                    >
+                      <Star 
+                        weight={isRated ? "fill" : "regular"}
+                        className={cn(
+                          "w-4 h-4",
+                          isRated ? "text-blue-500" : "text-muted-foreground"
+                        )}
+                      />
+                    </button>
+                  )
+                })}
                 <button
                   onClick={() => setShowRatingInput(false)}
-                  className="ml-1 text-xs text-muted-foreground hover:text-foreground"
+                  className="ml-1 hover:text-foreground transition-colors"
                   aria-label="Cancel rating"
                 >
-                  ✕
+                  <X className="w-3 h-3 text-muted-foreground" />
                 </button>
               </div>
             ) : (
