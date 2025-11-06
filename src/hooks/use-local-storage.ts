@@ -20,7 +20,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T 
   const setValue = (value: T | ((val: T) => T)) => {
     try {
       // Permettre la fonction callback comme React.useState / Allow callback function like React.useState
-      const valueToStore = value instanceof Function ? value(storedValue) : value
+      const valueToStore = typeof value === 'function' ? (value as (val: T) => T)(storedValue) : value
       setStoredValue(valueToStore)
       window.localStorage.setItem(key, JSON.stringify(valueToStore))
     } catch (error) {

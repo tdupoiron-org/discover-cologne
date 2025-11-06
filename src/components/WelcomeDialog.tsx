@@ -167,7 +167,7 @@ export function WelcomeDialog({ open, onComplete }: WelcomeDialogProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={(open) => !open && onComplete()}>
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onComplete()}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <div className="flex items-center justify-center mb-4">
