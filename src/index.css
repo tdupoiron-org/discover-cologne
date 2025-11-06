@@ -15,6 +15,53 @@
   }
 }
 
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible styles for better keyboard navigation */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0 0 0);
+    --border: oklch(0 0 0);
+  }
+  
+  .dark {
+    --background: oklch(0 0 0);
+    --foreground: oklch(1 0 0);
+    --border: oklch(1 0 0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 :root {
   --background: oklch(0.96 0.02 85);
   --foreground: oklch(0.25 0.01 35);
