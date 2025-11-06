@@ -6,6 +6,14 @@ import { Badge } from '@/components/ui/badge'
 import { MapPin, CheckCircle } from '@phosphor-icons/react'
 import type { Site } from '@/types/site'
 
+// Sort sites by popularity: must-see first, then popular, then hidden-gem
+// Ordenar sitios por popularidad: imprescindibles primero, luego populares, luego joyas ocultas
+const POPULARITY_ORDER: Record<Site['popularity'], number> = {
+  'must-see': 1,
+  'popular': 2,
+  'hidden-gem': 3
+}
+
 function App() {
   const [visitedSites, setVisitedSites] = useState<string[]>([])
   const [filter, setFilter] = useState<'all' | 'visited' | 'unvisited'>('all')
@@ -20,14 +28,6 @@ function App() {
       return [...current, siteId]
     })
   }
-
-  // Sort sites by popularity: must-see first, then popular, then hidden-gem
-  // Ordenar sitios por popularidad: imprescindibles primero, luego populares, luego joyas ocultas
-  const popularityOrder: Record<Site['popularity'], number> = {
-    'must-see': 1,
-    'popular': 2,
-    'hidden-gem': 3
-  }
   
   const filteredSites = sevillaSites
     .filter(site => {
@@ -35,7 +35,7 @@ function App() {
       if (filter === 'unvisited') return !visited.includes(site.id)
       return true
     })
-    .sort((a, b) => popularityOrder[a.popularity] - popularityOrder[b.popularity])
+    .sort((a, b) => POPULARITY_ORDER[a.popularity] - POPULARITY_ORDER[b.popularity])
 
   const visitedCount = visited.length
   const totalCount = sevillaSites.length
