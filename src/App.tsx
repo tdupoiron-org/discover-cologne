@@ -128,6 +128,7 @@ function App() {
               target="_blank" 
               rel="noopener noreferrer"
               className="underline hover:text-foreground transition-colors"
+              aria-label="Visit tdupoiron's GitHub profile"
             >
               tdupoiron
             </a>
@@ -137,6 +138,7 @@ function App() {
               target="_blank" 
               rel="noopener noreferrer"
               className="underline hover:text-foreground transition-colors"
+              aria-label="Visit zjaveed's GitHub profile"
             >
               zjaveed
             </a>
