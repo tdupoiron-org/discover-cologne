@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { sevillaSites } from '@/data/sites'
+import { kolnSites } from '@/data/sites'
 import { SiteCard } from '@/components/SiteCard'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
@@ -20,14 +20,14 @@ function App() {
     })
   }
 
-  const filteredSites = sevillaSites.filter(site => {
+  const filteredSites = kolnSites.filter(site => {
     if (filter === 'visited') return visited.includes(site.id)
     if (filter === 'unvisited') return !visited.includes(site.id)
     return true
   })
 
   const visitedCount = visited.length
-  const totalCount = sevillaSites.length
+  const totalCount = kolnSites.length
   const progressPercentage = (visitedCount / totalCount) * 100
 
   return (
@@ -37,11 +37,11 @@ function App() {
           <div className="flex items-center gap-3 mb-3">
             <MapPin weight="fill" className="w-10 h-10 text-primary" />
             <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-              Discover Sevilla
+              Discover Köln
             </h1>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mb-6">
-            Welcome to your personal guide for exploring Sevilla's most captivating sites. 
+            Welcome to your personal guide for exploring Köln's most captivating sites. 
             Track your journey through this magnificent city.
           </p>
 
@@ -98,7 +98,7 @@ function App() {
           <div className="text-center py-16">
             <p className="text-lg text-muted-foreground">
               {filter === 'visited' && visitedCount === 0
-                ? 'Start exploring Sevilla and mark your first site! ✨'
+                ? 'Start exploring Köln and mark your first site! ✨'
                 : filter === 'visited' && visitedCount === totalCount
                 ? '🎉 Congratulations! You\'ve visited all the sites!'
                 : 'No sites match your filter.'}
@@ -118,12 +118,12 @@ function App() {
         )}
       </div>
       
-      {/* Footer - Pie de página */}
+      {/* Footer - Fußzeile */}
       <footer className="border-t border-border mt-12">
         <div className="max-w-7xl mx-auto px-6 py-6 md:px-8">
           <p className="text-center text-sm text-muted-foreground">
-            © 2025 Discover Sevilla. Made with ❤️ for travelers.
-            {/* Hecho con amor para viajeros */}
+            © 2025 Discover Köln. Made with ❤️ for travelers.
+            {/* Mit Liebe für Reisende gemacht */}
           </p>
         </div>
       </footer>
