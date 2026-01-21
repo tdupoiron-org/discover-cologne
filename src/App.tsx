@@ -122,7 +122,15 @@ function App() {
       <footer className="border-t border-border mt-12">
         <div className="max-w-7xl mx-auto px-6 py-6 md:px-8">
           <p className="text-center text-sm text-muted-foreground">
-            © 2025 Discover Köln. Made with ❤️ for travelers.
+            © 2025 Discover Köln. Made with ❤️ for travelers by{' '}
+            <a 
+              href="https://github.com/tdupoiron" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-medium hover:text-foreground transition-colors"
+            >
+              tdupoiron
+            </a>
             {/* Mit Liebe für Reisende gemacht */}
           </p>
         </div>
