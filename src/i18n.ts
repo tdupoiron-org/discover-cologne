@@ -18,7 +18,7 @@ i18n
     lng: savedLanguage,
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false // react already saves from xss
+      escapeValue: false // React already safeguards from XSS
     }
   })
 
