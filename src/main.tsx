@@ -7,6 +7,7 @@ import { ErrorFallback } from './ErrorFallback.tsx'
 import "./main.css"
 import "./styles/theme.css"
 import "./index.css"
+import "leaflet/dist/leaflet.css"
 
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary FallbackComponent={ErrorFallback}>

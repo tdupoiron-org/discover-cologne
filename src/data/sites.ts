@@ -12,7 +12,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.9,
     popularity: 'must-see',
-    category: 'Nature'
+    category: 'Nature',
+    coordinates: { lat: 16.0447, lng: -61.6638 }
   },
   {
     id: 'pointe-des-chateaux',
@@ -23,7 +24,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'high',
     rating: 4.8,
     popularity: 'must-see',
-    category: 'Landmark'
+    category: 'Landmark',
+    coordinates: { lat: 16.2373, lng: -61.1805 }
   },
   {
     id: 'carbet-falls',
@@ -34,7 +36,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.7,
     popularity: 'must-see',
-    category: 'Nature'
+    category: 'Nature',
+    coordinates: { lat: 16.0081, lng: -61.7294 }
   },
   {
     id: 'memorial-acte',
@@ -45,7 +48,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'low',
     rating: 4.8,
     popularity: 'popular',
-    category: 'Museum'
+    category: 'Museum',
+    coordinates: { lat: 16.2312, lng: -61.5314 }
   },
   {
     id: 'grande-anse-beach',
@@ -56,7 +60,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.7,
     popularity: 'popular',
-    category: 'Beach'
+    category: 'Beach',
+    coordinates: { lat: 16.3300, lng: -61.7950 }
   },
   {
     id: 'cousteau-reserve',
@@ -67,7 +72,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.9,
     popularity: 'must-see',
-    category: 'Experience'
+    category: 'Experience',
+    coordinates: { lat: 16.1664, lng: -61.7750 }
   },
   {
     id: 'les-saintes',
@@ -78,7 +84,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.8,
     popularity: 'popular',
-    category: 'Experience'
+    category: 'Experience',
+    coordinates: { lat: 15.8667, lng: -61.5833 }
   },
   {
     id: 'pointe-noire',
@@ -89,7 +96,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'low',
     rating: 4.5,
     popularity: 'hidden-gem',
-    category: 'Village'
+    category: 'Village',
+    coordinates: { lat: 16.2000, lng: -61.7833 }
   },
   {
     id: 'distillery-damoiseau',
@@ -100,7 +108,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'low',
     rating: 4.6,
     popularity: 'popular',
-    category: 'Experience'
+    category: 'Experience',
+    coordinates: { lat: 16.3281, lng: -61.4383 }
   },
   {
     id: 'la-desirade',
@@ -111,7 +120,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'low',
     rating: 4.6,
     popularity: 'hidden-gem',
-    category: 'Island'
+    category: 'Island',
+    coordinates: { lat: 16.3167, lng: -61.0333 }
   },
   {
     id: 'jardin-botanique',
@@ -122,7 +132,8 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'low',
     rating: 4.7,
     popularity: 'popular',
-    category: 'Garden'
+    category: 'Garden',
+    coordinates: { lat: 16.3161, lng: -61.7947 }
   },
   {
     id: 'port-louis',
@@ -133,6 +144,7 @@ export const guadeloupeSites: Site[] = [
     crowdLevel: 'medium',
     rating: 4.5,
     popularity: 'popular',
-    category: 'Beach'
+    category: 'Beach',
+    coordinates: { lat: 16.4344, lng: -61.5328 }
   }
 ]
