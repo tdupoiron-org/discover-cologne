@@ -55,6 +55,8 @@ npm start
 # Then press 'i' for iOS simulator or scan QR code with Expo Go
 ```
 
+[📖 iOS Getting Started Guide](ios-app/GETTING_STARTED.md)
+
 ## 📱 iOS App Features
 
 The iOS app includes all features from the web version plus:
