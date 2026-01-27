@@ -6,11 +6,18 @@ This template is built with modern web technologies to provide an elegant and re
 
 🚀 What's Inside?
 - A clean, modern interface for exploring Guadeloupe's attractions
+- Interactive map view with OpenStreetMap integration
+- Geolocation support for personalized navigation
 - Pre-configured with Vite and React for fast development
 - Beautiful UI components powered by Radix UI and Tailwind CSS
 - Interactive site tracking and filtering
   
 🌴 Features:
+- **Interactive Map View**: Explore Guadeloupe with an OpenStreetMap-powered interactive map
+  - Toggle between grid and map views
+  - Geolocation support to center the map on your current location
+  - Color-coded markers based on site popularity and visit status
+  - Rich popups with site details, images, and quick visit tracking
 - Curated list of must-see locations in Guadeloupe
 - Visit tracking with progress indicators
 - Responsive design for mobile and desktop
