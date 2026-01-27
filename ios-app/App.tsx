@@ -32,7 +32,7 @@ function MainNavigator() {
           component={ListScreen}
           options={{
             tabBarLabel: 'List',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>📋</Text>,
+            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>📋</Text>,
           }}
         />
         <Tab.Screen
@@ -40,7 +40,7 @@ function MainNavigator() {
           component={MapScreen}
           options={{
             tabBarLabel: 'Map',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>🗺️</Text>,
+            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>🗺️</Text>,
           }}
         />
         <Tab.Screen
@@ -48,7 +48,7 @@ function MainNavigator() {
           component={SettingsScreen}
           options={{
             tabBarLabel: 'Settings',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24 }}>⚙️</Text>,
+            tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>⚙️</Text>,
           }}
         />
       </Tab.Navigator>

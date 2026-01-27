@@ -1,27 +1,30 @@
 import { Site } from '../types/site'
 
-export const getCrowdColor = (level: Site['crowdLevel'], colors: any) => {
+export const getCrowdColor = (level: Site['crowdLevel'], colors: any): string => {
   switch (level) {
     case 'high': return colors.destructive
     case 'medium': return colors.warning
     case 'low': return colors.success
+    default: return colors.warning
   }
 }
 
-export const getMarkerColor = (site: Site, isVisited: boolean) => {
+export const getMarkerColor = (site: Site, isVisited: boolean): string => {
   if (isVisited) return '#9ca3af'
   switch (site.popularity) {
     case 'must-see': return '#ef4444'
     case 'popular': return '#f59e0b'
     case 'hidden-gem': return '#10b981'
+    default: return '#10b981'
   }
 }
 
-export const getPopularityEmoji = (popularity: Site['popularity']) => {
+export const getPopularityEmoji = (popularity: Site['popularity']): string => {
   switch (popularity) {
     case 'must-see': return '✨'
     case 'popular': return '🔥'
     case 'hidden-gem': return '💎'
+    default: return '✨'
   }
 }
 

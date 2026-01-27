@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, Alert } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 import MapView, { Marker, Callout, PROVIDER_DEFAULT } from 'react-native-maps'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Location from 'expo-location'
 import { Site } from '../types/site'
 import { useTheme } from '../contexts/ThemeContext'
@@ -14,8 +13,6 @@ interface MapViewComponentProps {
   onToggleVisit: (siteId: string) => void
 }
 
-const { width } = Dimensions.get('window')
-
 export const MapViewComponent: React.FC<MapViewComponentProps> = ({
   sites,
   visitedSites,
@@ -23,7 +20,6 @@ export const MapViewComponent: React.FC<MapViewComponentProps> = ({
 }) => {
   const { colors, theme } = useTheme()
   const { t } = useTranslation()
-  const insets = useSafeAreaInsets()
   const [locationError, setLocationError] = useState<string | null>(null)
 
   useEffect(() => {
