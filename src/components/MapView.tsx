@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import { Site } from '@/types/site'
@@ -54,22 +54,24 @@ export function MapView({ sites, visitedSites, onToggleVisit }: MapViewProps) {
   const defaultCenter: [number, number] = [16.2, -61.5]
   const initialCenter = userLocation || defaultCenter
 
-  // Create custom marker icons based on visit status
-  const createMarkerIcon = (isVisited: boolean, popularity: Site['popularity']) => {
-    const color = isVisited ? '#9ca3af' : popularity === 'must-see' ? '#ef4444' : popularity === 'popular' ? '#f59e0b' : '#10b981'
-    
-    return new Icon({
-      iconUrl: `data:image/svg+xml;base64,${btoa(`
-        <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 0C7.16344 0 0 7.16344 0 16C0 24.8366 16 42 16 42C16 42 32 24.8366 32 16C32 7.16344 24.8366 0 16 0Z" fill="${color}"/>
-          <circle cx="16" cy="16" r="6" fill="white"/>
-        </svg>
-      `)}`,
-      iconSize: [32, 42],
-      iconAnchor: [16, 42],
-      popupAnchor: [0, -42],
-    })
-  }
+  // Memoize marker icon creation to avoid recreating on every render
+  const createMarkerIcon = useMemo(() => {
+    return (isVisited: boolean, popularity: Site['popularity']) => {
+      const color = isVisited ? '#9ca3af' : popularity === 'must-see' ? '#ef4444' : popularity === 'popular' ? '#f59e0b' : '#10b981'
+      
+      return new Icon({
+        iconUrl: `data:image/svg+xml;base64,${btoa(`
+          <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.16344 0 0 7.16344 0 16C0 24.8366 16 42 16 42C16 42 32 24.8366 32 16C32 7.16344 24.8366 0 16 0Z" fill="${color}"/>
+            <circle cx="16" cy="16" r="6" fill="white"/>
+          </svg>
+        `)}`,
+        iconSize: [32, 42],
+        iconAnchor: [16, 42],
+        popupAnchor: [0, -42],
+      })
+    }
+  }, [])
 
   const getCrowdBadgeVariant = (level: Site['crowdLevel']) => {
     switch (level) {
