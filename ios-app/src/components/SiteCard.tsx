@@ -4,6 +4,7 @@ import { Site } from '../types/site'
 import { useTheme } from '../contexts/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { getCrowdColor, getPopularityEmoji, hexToRgba } from '../utils/colors'
+import { getTranslatedSiteName, getTranslatedSiteDescription, getTranslatedSiteDuration, getTranslatedCategory, getTranslatedCrowdLevel } from '../utils/siteTranslations'
 
 interface SiteCardProps {
   site: Site
@@ -36,26 +37,26 @@ export const SiteCard: React.FC<SiteCardProps> = ({ site, isVisited, onToggleVis
       
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={[styles.category, { color: colors.textSecondary }]}>{site.category}</Text>
+          <Text style={[styles.category, { color: colors.textSecondary }]}>{getTranslatedCategory(site.category, t)}</Text>
           <Text style={styles.popularityEmoji}>{popularityEmoji}</Text>
         </View>
         
-        <Text style={[styles.name, { color: colors.text }]}>{site.name}</Text>
+        <Text style={[styles.name, { color: colors.text }]}>{getTranslatedSiteName(site, t)}</Text>
         <Text style={[styles.description, { color: colors.textSecondary }]} numberOfLines={3}>
-          {site.description}
+          {getTranslatedSiteDescription(site, t)}
         </Text>
         
         <View style={styles.metadata}>
           <View style={styles.metadataItem}>
             <Text style={[styles.metadataLabel, { color: colors.textSecondary }]}>⏱</Text>
-            <Text style={[styles.metadataValue, { color: colors.text }]}>{site.duration}</Text>
+            <Text style={[styles.metadataValue, { color: colors.text }]}>{getTranslatedSiteDuration(site, t)}</Text>
           </View>
           
           <View style={[styles.metadataItem, { marginLeft: 16 }]}>
             <Text style={[styles.metadataLabel, { color: colors.textSecondary }]}>👥</Text>
             <View style={[styles.crowdBadge, { backgroundColor: hexToRgba(crowdColor, 0.2) }]}>
               <Text style={[styles.crowdText, { color: crowdColor }]}>
-                {site.crowdLevel}
+                {getTranslatedCrowdLevel(site.crowdLevel, t)}
               </Text>
             </View>
           </View>
