@@ -32,26 +32,26 @@ function MainNavigator() {
         <Tab.Screen
           name="List"
           component={ListScreen}
-          options={{
+          options={() => ({
             tabBarLabel: t('list'),
             tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>📋</Text>,
-          }}
+          })}
         />
         <Tab.Screen
           name="Map"
           component={MapScreen}
-          options={{
+          options={() => ({
             tabBarLabel: t('map'),
             tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>🗺️</Text>,
-          }}
+          })}
         />
         <Tab.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{
+          options={() => ({
             tabBarLabel: t('settings'),
             tabBarIcon: ({ color }) => <Text style={{ fontSize: 24, color }}>⚙️</Text>,
-          }}
+          })}
         />
       </Tab.Navigator>
     </NavigationContainer>
