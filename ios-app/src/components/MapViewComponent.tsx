@@ -6,6 +6,7 @@ import { Site } from '../types/site'
 import { useTheme } from '../contexts/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { getMarkerColor } from '../utils/colors'
+import { getTranslatedSiteName, getTranslatedSiteDescription, getTranslatedSiteDuration, getTranslatedCategory } from '../utils/siteTranslations'
 
 interface MapViewComponentProps {
   sites: Site[]
@@ -82,23 +83,23 @@ export const MapViewComponent: React.FC<MapViewComponentProps> = ({
                   
                   <View style={styles.calloutContent}>
                     <Text style={[styles.calloutCategory, { color: colors.textSecondary }]}>
-                      {site.category}
+                      {getTranslatedCategory(site.category, t)}
                     </Text>
                     <Text style={[styles.calloutTitle, { color: colors.text }]}>
-                      {site.name}
+                      {getTranslatedSiteName(site, t)}
                     </Text>
                     <Text
                       style={[styles.calloutDescription, { color: colors.textSecondary }]}
                       numberOfLines={2}
                     >
-                      {site.description}
+                      {getTranslatedSiteDescription(site, t)}
                     </Text>
                     
                     <View style={styles.calloutMetadata}>
                       <View style={styles.calloutMetadataItem}>
                         <Text style={styles.calloutMetadataEmoji}>⏱</Text>
                         <Text style={[styles.calloutMetadataText, { color: colors.text }]}>
-                          {site.duration}
+                          {getTranslatedSiteDuration(site, t)}
                         </Text>
                       </View>
                       <View style={[styles.calloutMetadataItem, { marginLeft: 16 }]}>
