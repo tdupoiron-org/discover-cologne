@@ -18,7 +18,7 @@ const SitesContext = createContext<SitesContextType | undefined>(undefined)
 const STORAGE_KEY = '@managed_sites'
 
 const generateId = (): string => {
-  return `site-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+  return `site-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`
 }
 
 export const SitesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

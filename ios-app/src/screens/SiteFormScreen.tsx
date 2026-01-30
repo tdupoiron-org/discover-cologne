@@ -75,6 +75,10 @@ export const SiteFormScreen: React.FC<SiteFormScreenProps> = ({ siteId, onClose 
       Alert.alert(t('error'), t('coordinates_invalid'))
       return false
     }
+    if (latNum < -90 || latNum > 90 || lngNum < -180 || lngNum > 180) {
+      Alert.alert(t('error'), t('coordinates_out_of_range'))
+      return false
+    }
     return true
   }
 
@@ -319,7 +323,7 @@ export const SiteFormScreen: React.FC<SiteFormScreenProps> = ({ siteId, onClose 
                   onChangeText={setLat}
                   placeholder="16.0447"
                   placeholderTextColor={colors.textSecondary}
-                  keyboardType="decimal-pad"
+                  keyboardType="numbers-and-punctuation"
                 />
               </View>
               <View style={[styles.inputGroup, styles.coordinateInput]}>

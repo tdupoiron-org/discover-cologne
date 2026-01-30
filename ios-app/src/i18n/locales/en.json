@@ -54,6 +54,7 @@
   "duration_required": "Visit duration is required.",
   "rating_invalid": "Rating must be a number between 0 and 5.",
   "coordinates_invalid": "Please enter valid latitude and longitude values.",
+  "coordinates_out_of_range": "Latitude must be between -90 and 90, longitude must be between -180 and 180.",
   "image_load_error": "Unable to load image. Please check the URL.",
   "basic_info": "Basic Information",
   "metadata": "Metadata",

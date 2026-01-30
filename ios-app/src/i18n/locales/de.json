@@ -54,6 +54,7 @@
   "duration_required": "Die Besuchsdauer ist erforderlich.",
   "rating_invalid": "Die Bewertung muss eine Zahl zwischen 0 und 5 sein.",
   "coordinates_invalid": "Bitte geben Sie gültige Breiten- und Längengradwerte ein.",
+  "coordinates_out_of_range": "Der Breitengrad muss zwischen -90 und 90 liegen, der Längengrad zwischen -180 und 180.",
   "image_load_error": "Bild konnte nicht geladen werden. Bitte überprüfen Sie die URL.",
   "basic_info": "Grundinformationen",
   "metadata": "Metadaten",

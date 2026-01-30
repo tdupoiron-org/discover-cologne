@@ -54,6 +54,7 @@
   "duration_required": "La durée de visite est requise.",
   "rating_invalid": "La note doit être un nombre entre 0 et 5.",
   "coordinates_invalid": "Veuillez entrer des valeurs de latitude et longitude valides.",
+  "coordinates_out_of_range": "La latitude doit être entre -90 et 90, la longitude doit être entre -180 et 180.",
   "image_load_error": "Impossible de charger l'image. Veuillez vérifier l'URL.",
   "basic_info": "Informations de base",
   "metadata": "Métadonnées",

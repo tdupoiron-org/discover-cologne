@@ -28,6 +28,11 @@ export const SiteManagementScreen: React.FC<SiteManagementScreenProps> = ({ onCl
 
   const [showForm, setShowForm] = useState(false)
   const [editingSiteId, setEditingSiteId] = useState<string | undefined>(undefined)
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
+
+  const handleImageError = (siteId: string) => {
+    setFailedImages(prev => new Set(prev).add(siteId))
+  }
 
   const handleAddSite = () => {
     setEditingSiteId(undefined)
@@ -107,7 +112,17 @@ export const SiteManagementScreen: React.FC<SiteManagementScreenProps> = ({ onCl
             style={[styles.siteItem, { backgroundColor: colors.card, borderColor: colors.border }]}
           >
             <View style={styles.siteContent}>
-              <Image source={{ uri: site.image }} style={styles.siteThumbnail} />
+              {failedImages.has(site.id) ? (
+                <View style={[styles.siteThumbnail, styles.siteThumbnailPlaceholder, { backgroundColor: colors.secondary }]}>
+                  <Text style={[styles.placeholderText, { color: colors.textSecondary }]}>📷</Text>
+                </View>
+              ) : (
+                <Image 
+                  source={{ uri: site.image }} 
+                  style={styles.siteThumbnail} 
+                  onError={() => handleImageError(site.id)}
+                />
+              )}
               <View style={styles.siteInfo}>
                 <Text style={[styles.siteName, { color: colors.text }]} numberOfLines={1}>
                   {site.name}
@@ -227,6 +242,13 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 8,
     resizeMode: 'cover',
+  },
+  siteThumbnailPlaceholder: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderText: {
+    fontSize: 24,
   },
   siteInfo: {
     flex: 1,
