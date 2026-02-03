@@ -5,6 +5,7 @@ const STORAGE_KEY = 'site-ratings'
 
 export function useSiteRatings() {
   const [ratings, setRatings] = useState<SiteRating[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   // Load ratings from localStorage on mount
   useEffect(() => {
@@ -16,12 +17,15 @@ export function useSiteRatings() {
         console.error('Error loading site ratings:', error)
       }
     }
+    setIsLoaded(true)
   }, [])
 
   // Save ratings to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings))
-  }, [ratings])
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings))
+    }
+  }, [ratings, isLoaded])
 
   const setRating = (siteId: string, rating: number) => {
     setRatings((current) => {

@@ -23,6 +23,14 @@ export const SiteCard: React.FC<SiteCardProps> = ({ site, isVisited, onToggleVis
   const crowdColor = getCrowdColor(site.crowdLevel, colors)
   const popularityEmoji = getPopularityEmoji(site.popularity)
 
+  const getStarDisplay = (starValue: number): string => {
+    return userRating && starValue <= userRating ? '⭐' : '☆'
+  }
+
+  const getStarColor = (starValue: number): string => {
+    return userRating && starValue <= userRating ? colors.accent : colors.textSecondary
+  }
+
   const renderStars = () => {
     return (
       <View style={styles.starsContainer}>
@@ -32,8 +40,8 @@ export const SiteCard: React.FC<SiteCardProps> = ({ site, isVisited, onToggleVis
             onPress={() => onRatingChange(site.id, star)}
             style={styles.starButton}
           >
-            <Text style={[styles.starText, { color: userRating && star <= userRating ? colors.accent : colors.textSecondary }]}>
-              {userRating && star <= userRating ? '⭐' : '☆'}
+            <Text style={[styles.starText, { color: getStarColor(star) }]}>
+              {getStarDisplay(star)}
             </Text>
           </TouchableOpacity>
         ))}
