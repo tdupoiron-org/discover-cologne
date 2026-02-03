@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   StatusBar,
   Modal,
+  Linking,
 } from 'react-native'
 import { useTheme } from '../contexts/ThemeContext'
 import { useTranslation } from 'react-i18next'
@@ -128,9 +129,18 @@ export const SettingsScreen: React.FC = () => {
         </View>
 
         <View style={[styles.footer, { paddingBottom: 40 }]}>
-          <Text style={[styles.footerText, { color: colors.textSecondary }]}>
-            {t('made_by')}
-          </Text>
+          <TouchableOpacity 
+            onPress={() => Linking.openURL('https://github.com/tdupoiron')}
+            accessibilityRole="link"
+            accessibilityLabel="Made with love for travelers by tdupoiron"
+          >
+            <Text style={[styles.footerText, { color: colors.textSecondary }]}>
+              {t('made_with')}{' '}
+              <Text style={[styles.footerLink, { color: colors.primary }]}>
+                tdupoiron
+              </Text>
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -213,5 +223,9 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 13,
     textAlign: 'center',
+  },
+  footerLink: {
+    fontWeight: '600',
+    textDecorationLine: 'underline',
   },
 })
